@@ -230,3 +230,39 @@ export default App;
 // }
 
 // export default Home;
+
+import React from "react";
+import ReactDOM from "react-dom";
+// import moment from "moment";
+import { Carousel, Icon } from "antd";
+// import "antd/dist/antd.css";
+
+import "./index.css";
+
+const Arrow = ({ type, style, className, onClick }) => (
+  <Icon type={type} style={style} className={className} onClick={onClick} />
+);
+
+ReactDOM.render(
+  <div style={{ margin: 24 }}>
+    <Carousel
+      arrows
+      prevArrow={<Arrow type="left" />}
+      nextArrow={<Arrow type="right" />}
+    >
+      <div>
+        <h3>1</h3>
+      </div>
+      <div>
+        <h3>2</h3>
+      </div>
+      <div>
+        <h3>3</h3>
+      </div>
+      <div>
+        <h3>4</h3>
+      </div>
+    </Carousel>
+  </div>,
+  document.getElementById("root")
+);
