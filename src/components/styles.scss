@@ -1,0 +1,165 @@
+.searchbar-container {
+  margin-top: 15px;
+  margin-left: 15px;
+  display: inline-flex;
+  gap: 20px;
+  flex-direction: column;
+}
+
+.editor-pick-movies-list-container {
+  //   border: 1px solid red;
+  display: flex;
+  gap: 15px;
+  max-width: 90%;
+  overflow-x: scroll;
+  &::-webkit-scrollbar {
+    width: 15px;
+  }
+  &::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background: rgba(161, 160, 160, 0.05);
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 20px;
+    background: rgba(0, 0, 0, 0.2);
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    border-radius: 10px;
+    background: rgba(23, 22, 22, 0.44);
+  }
+}
+
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.movie-card-container {
+  margin-bottom: 20px;
+  &:hover {
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  }
+  .movie-card-inner {
+    .movie-card-genres {
+    }
+    .movie-card-infos {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 15px;
+      .movie-card-infos-title {
+        font-family: "Karla";
+      }
+      .movie-card-infos-date {
+        font-family: "Karla";
+        color: grey;
+      }
+      .movie-card-infos-vote-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        .movie-card-infos-vote-text {
+          font-family: "Karla";
+        }
+        .movie-card-infos-vote-img {
+          width: 25px;
+          height: 25px;
+        }
+      }
+      .movie-card-btns {
+        display: flex;
+        justify-self: center;
+        // align-items: center;
+        flex-direction: column;
+        align-self: center;
+        gap: 15px;
+        // border: 1px solid;
+        align-items: center;
+        .movie-card-add-btn {
+          color: gray;
+        }
+        .movie-card-infos-btn {
+          color: blue;
+        }
+      }
+      .movie-card-infos-img {
+        width: 300px;
+        height: 300px;
+      }
+    }
+  }
+  .movie-card-stars-and-director-wrapper {
+    border: 1px solid;
+    .movie-card-director {
+      span.text {
+      }
+    }
+    .movie-card-director-highlighted-text {
+    }
+
+    .movie-card-stars {
+      span.text {
+      }
+      .movie-card-stars-highlighted-text {
+      }
+    }
+  }
+
+  &.latest-movie-card-container {
+    .movie-card-infos {
+      .movie-card-infos-title {
+        font-family: "Roboto";
+        font-size: larger;
+      }
+      .movie-card-infos-date {
+        font-family: "Roboto";
+        font-size: larger;
+        color: grey;
+      }
+      .movie-card-infos-vote-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        .movie-card-infos-vote-text {
+          font-family: "Karla";
+          font-size: larger;
+        }
+        .movie-card-infos-vote-img {
+          width: 25px;
+          height: 25px;
+        }
+      }
+      .movie-card-btns {
+        display: flex;
+        justify-self: center;
+        flex-direction: column;
+        align-self: center;
+        gap: 15px;
+        align-items: center;
+        .movie-card-add-btn {
+          color: gray;
+        }
+        .movie-card-infos-btn {
+          color: blue;
+        }
+      }
+      .movie-card-infos-img {
+        width: 200px;
+        height: 200px;
+      }
+    }
+  }
+}
+
+.latest-movies-list-container {
+  overflow-y: hidden;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  max-width: 100%;
+  overflow-x: scroll;
+}

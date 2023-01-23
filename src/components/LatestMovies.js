@@ -1,68 +1,99 @@
+import { Pagination, Spin } from "antd";
 import axios from "axios";
-import { useEffect, useState } from "react";
-import ReactPlayer from "react-player";
+import { useContext, useEffect, useState } from "react";
+import { MoviesContext } from "../contextApi/MoviesProvider";
+import { MovieCard } from "./MovieCard";
+import "./styles.scss";
 
 export const LatestMovies = ({}) => {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   let append = `&append_to_response=credits,videos,images`;
-  const [id, setId] = useState(``);
-  const [latestMovies, setLatestMovies] = useState([{}]);
   const [latestMoviesNewArray, setLatestMoviesNewArray] = useState([{}]);
+  const { latestMovies, setLatestMovies } = useContext(MoviesContext);
 
-  // const latestUrl = `https://api.themoviedb.org/3/movie/latest?api_key=c611912a578da3c70cd0f51d4b6c2764&language=en-US`;
-  const topRatedMoviesUrl = `https://api.themoviedb.org/3/movie/top_rated?api_key=c611912a578da3c70cd0f51d4b6c2764&language=en-US&page=1`;
-
-  // newSelectedStudents.push(studentId); // ===   newSelectedStudents = [...selectedStudents, studentId];
+  const [paginationCurrentPage, setPaginationCurrentPage] = useState(0);
+  const [latestMoviesPerPage, setLatestMoviesPerPage] = useState(10);
+  // const [postsParPage, setpostsParPage] = useState(10);
+  const topRatedMoviesUrl = `https://api.themoviedb.org/3/movie/top_rated?api_key=c611912a578da3c70cd0f51d4b6c2764&language=en-US`;
 
   const getLatestMovies = async () => {
+    setLoading(true);
     let isMounted = true;
     const latestResponse = await axios.get(topRatedMoviesUrl);
-    // console.log(latestResponse);
-
     latestResponse?.data?.results.forEach(async (movie) => {
       const movieElem = await axios.get(
         `https://api.themoviedb.org/3/movie/${movie?.id}?api_key=c611912a578da3c70cd0f51d4b6c2764${append}`
       );
-
       latestMoviesNewArray.push(movieElem.data);
-      setLatestMovies(latestMoviesNewArray);
-      // console.log(latestMovies);
-      setLoading(false);
+      if (isMounted) {
+        setLatestMovies(latestMoviesNewArray);
+      }
     });
 
-    // if (isMounted) {
-    //   setLatestMovies(latestResponse?.data?.results);
-    // }
     setLoading(false);
     return () => {
       isMounted = false;
     };
   };
 
-  let singleMovieUrl = `https://api.themoviedb.org/3/movie/${id}?api_key=c611912a578da3c70cd0f51d4b6c2764${append}`;
-
   useEffect(() => {
-    getLatestMovies();
+    setTimeout(() => {
+      getLatestMovies();
+    }, 500);
   }, []);
 
-  // if (loading) return <div>loading data....</div>;
+  if (loading)
+    return (
+      <div className="loading-spinner">
+        <Spin spinning={true} size="large" />
+      </div>
+    );
   if (latestMovies) {
     return (
-      <div>
-        <div>
-          {latestMovies?.map((latestMovie) => (
-            // <MovieCard key={latestMovie?.id} {...{ latestMovie }}></MovieCard>
-            <ReactPlayer
-              width="150px"
-              height="150px"
-              className="react-player"
-              // playIcon={<PlayIcon />}
-              controls
-              light
-              url={`https://www.youtube.com/watch?v=${latestMovie?.videos?.results[0].key}`}
-              // when using react-player, must type watch in the url , rather than embed
-            />
-          ))}
+      <div className="latest-movies-list-container">
+        <>
+          {latestMovies?.map(
+            (latestMovie, index) =>
+              index > 0 && (
+                <div>
+                  <span>{index}</span>
+                  <br />
+
+                  <MovieCard
+                    key={latestMovie?.id}
+                    {...{ latestMovie }}
+                  ></MovieCard>
+                </div>
+              )
+          )}
+        </>
+        <div className="latest-movies-list-pagination-wrapper">
+          <Pagination
+            className={"latest-movies-list-pagination"}
+            prevIcon={null}
+            nextIcon={null}
+            total={
+              latestMovies.length > 0 && latestMovies.length <= 10
+                ? 30 //3 pages
+                : latestMovies.length >= 10 && latestMovies.length <= 20
+                ? 60 //6 pages
+                : latestMovies.length >= 20 && latestMovies.length <= 30
+                ? 90
+                : latestMovies.length >= 30 && latestMovies.length <= 40
+                ? 120
+                : latestMovies.length >= 40 && latestMovies.length <= 50
+                ? 150
+                : latestMovies.length >= 50 && latestMovies.length <= 60
+                ? 180
+                : 250
+            }
+            current={paginationCurrentPage}
+            onChange={(page, e) => {
+              setPaginationCurrentPage(page);
+            }}
+            showSizeChanger={false}
+            showQuickJumper
+          />
         </div>
       </div>
     );

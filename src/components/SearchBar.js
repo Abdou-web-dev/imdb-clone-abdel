@@ -1,5 +1,6 @@
 import { SearchByFilters } from "./search/SearchByFilters";
 import { SearchField } from "./search/SearchField";
+import "./styles.scss";
 
 export const SearchBar = ({
   setFilteredResults,
@@ -8,7 +9,7 @@ export const SearchBar = ({
   setshowResultsByFilterApplied,
 }) => {
   return (
-    <div>
+    <div className="searchbar-container">
       <SearchField
         {...{ setFilteredResults, searchInput, setSearchInput }}
       ></SearchField>

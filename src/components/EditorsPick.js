@@ -1,27 +1,31 @@
+import { Spin } from "antd";
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { MoviesContext } from "../contextApi/MoviesProvider";
 import { MovieCard } from "./MovieCard";
+import "./styles.scss";
 
 export const EditorsPick = ({ searchInput }) => {
   const { EditPickmovies, setEditPickmovies } = useContext(MoviesContext);
   let append = `&append_to_response=credits,videos,images`;
-  // console.log(EditPickmovies);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   let movie1Url = `https://api.themoviedb.org/3/movie/343611?api_key=c611912a578da3c70cd0f51d4b6c2764${append}`;
   let movie2Url = `https://api.themoviedb.org/3/movie/496243?api_key=c611912a578da3c70cd0f51d4b6c2764${append}`;
   let movie3Url = `https://api.themoviedb.org/3/movie/13?api_key=c611912a578da3c70cd0f51d4b6c2764${append}`;
   let movie4Url = `https://api.themoviedb.org/3/movie/769?api_key=c611912a578da3c70cd0f51d4b6c2764${append}`;
   let movie5Url = `https://api.themoviedb.org/3/movie/724089?api_key=c611912a578da3c70cd0f51d4b6c2764${append}`;
   let movie6Url = `https://api.themoviedb.org/3/movie/15?api_key=c611912a578da3c70cd0f51d4b6c2764${append}`;
-  let movie7Url = `https://api.themoviedb.org/3/movie/49046?api_key=c611912a578da3c70cd0f51d4b6c2764&append_to_response=credits,videos,images`;
-  // let ImNeuesUrl = `https://api.themoviedb.org/3/search/movie?api_key=c611912a578da3c70cd0f51d4b6c2764&query=Im+Westen+nichts+Neues`;
-
-  // https://api.themoviedb.org/3/movie/latest?api_key=<<api_key>>&language=en-US
-  // https://api.themoviedb.org/3/trending/movie/week?api_key=<<api_key>>
-  // const popularMoviesUrl = `https://api.themoviedb.org/3/movie/popular?api_key=c611912a578da3c70cd0f51d4b6c2764&language=en-US&page=10`;
+  let movie7Url = `https://api.themoviedb.org/3/movie/68718?api_key=c611912a578da3c70cd0f51d4b6c2764&append_to_response=credits,videos,images`;
+  let movie8Url = `https://api.themoviedb.org/3/movie/617653?api_key=c611912a578da3c70cd0f51d4b6c2764&append_to_response=credits,videos,images`;
+  let movie9Url = `https://api.themoviedb.org/3/movie/281957?api_key=c611912a578da3c70cd0f51d4b6c2764&append_to_response=credits,videos,images`;
+  let movie10Url = `https://api.themoviedb.org/3/movie/76203?api_key=c611912a578da3c70cd0f51d4b6c2764&append_to_response=credits,videos,images`;
+  let movie11Url = `https://api.themoviedb.org/3/movie/157336?api_key=c611912a578da3c70cd0f51d4b6c2764&append_to_response=credits,videos,images`;
+  let movie12Url = `https://api.themoviedb.org/3/movie/429?api_key=c611912a578da3c70cd0f51d4b6c2764&append_to_response=credits,videos,images`;
+  let movie13Url = `https://api.themoviedb.org/3/movie/155?api_key=c611912a578da3c70cd0f51d4b6c2764&append_to_response=credits,videos,images`;
+  let movie14Url = `https://api.themoviedb.org/3/movie/122?api_key=c611912a578da3c70cd0f51d4b6c2764&append_to_response=credits,videos,images`;
 
   const getMovies = async () => {
+    setLoading(true);
     let isMounted = true;
     const res1 = await axios.get(movie1Url);
     const res2 = await axios.get(movie2Url);
@@ -29,22 +33,30 @@ export const EditorsPick = ({ searchInput }) => {
     const res4 = await axios.get(movie4Url);
     const res5 = await axios.get(movie5Url);
     const res6 = await axios.get(movie6Url);
-    const resCredits = await axios.get(movie1Url);
-    const resCredists = await axios.get(movie3Url);
-
-    // console.log(Array.isArray(resCredits.data.credits.cast[0].name));
-    // console.log(Array.isArray(resCredits.data.credits.crew));
-    // console.log(Array.isArray(resCredits.data.videos.results));
-    // console.log(resCredits, resCredists);
-
+    const res7 = await axios.get(movie7Url);
+    const res8 = await axios.get(movie8Url);
+    const res9 = await axios.get(movie9Url);
+    const res10 = await axios.get(movie10Url);
+    const res11 = await axios.get(movie11Url);
+    const res12 = await axios.get(movie12Url);
+    const res13 = await axios.get(movie13Url);
+    const res14 = await axios.get(movie14Url);
     if (isMounted) {
       setEditPickmovies([
         res1.data,
         res2.data,
-        res6.data,
         res3.data,
         res4.data,
         res5.data,
+        res6.data,
+        res7.data,
+        res8.data,
+        res9.data,
+        res10.data,
+        res11.data,
+        res12.data,
+        res13.data,
+        res14.data,
       ]);
     }
     setLoading(false);
@@ -59,25 +71,22 @@ export const EditorsPick = ({ searchInput }) => {
     }, 500);
   }, []);
 
-  if (loading) return <div>loading data....</div>;
+  if (loading)
+    return (
+      <div className="loading-spinner">
+        <Spin spinning={true} size="large" />
+      </div>
+    );
 
   return (
-    <div>
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr 1fr 1fr 1fr",
-          gap: "20px",
-        }}
-      >
-        {EditPickmovies &&
-          EditPickmovies?.map((editorMovie) => (
-            <MovieCard
-              key={editorMovie?.id}
-              {...{ editorMovie, searchInput }}
-            ></MovieCard>
-          ))}
-      </div>
+    <div className="editor-pick-movies-list-container">
+      {EditPickmovies &&
+        EditPickmovies?.map((editorMovie) => (
+          <MovieCard
+            key={editorMovie?.id}
+            {...{ editorMovie, searchInput }}
+          ></MovieCard>
+        ))}
     </div>
   );
 };

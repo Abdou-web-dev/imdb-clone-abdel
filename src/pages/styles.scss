@@ -1,0 +1,15 @@
+.home-container {
+  display: grid;
+  grid-template-columns: 20% 80%;
+  .home-searchbar-container {
+  }
+  .home-movies-container {
+    .home-editors-pick-container {
+    }
+    .home-filtered-movies-container {
+    }
+    .home-latest-movies-container {
+      //   border: 1px solid;
+    }
+  }
+}
