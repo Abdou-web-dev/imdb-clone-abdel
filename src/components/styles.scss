@@ -1,17 +1,10 @@
-.searchbar-container {
-  margin-top: 15px;
-  margin-left: 15px;
-  display: inline-flex;
-  gap: 20px;
-  flex-direction: column;
+@mixin d_flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.editor-pick-movies-list-container {
-  //   border: 1px solid red;
-  display: flex;
-  gap: 15px;
-  max-width: 90%;
-  overflow-x: scroll;
+@mixin scrollBar {
   &::-webkit-scrollbar {
     width: 15px;
   }
@@ -27,6 +20,22 @@
     border-radius: 10px;
     background: rgba(23, 22, 22, 0.44);
   }
+}
+.searchbar-container {
+  margin-top: 15px;
+  margin-left: 15px;
+  display: inline-flex;
+  gap: 20px;
+  flex-direction: column;
+}
+
+.editor-pick-movies-list-container {
+  //   border: 1px solid red;
+  display: flex;
+  gap: 15px;
+  max-width: 90%;
+  overflow-x: scroll;
+  @include scrollBar;
 }
 
 .loading-spinner {
@@ -162,4 +171,77 @@
   grid-template-columns: 1fr 1fr 1fr 1fr;
   max-width: 100%;
   overflow-x: scroll;
+}
+
+.movie-reviews-container {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  .movie-reviews-review1 {
+    .movie-reviews-r1-auth {
+      font-size: 20px;
+      letter-spacing: 1.5px;
+      margin: 15px;
+    }
+    .movie-reviews-r1-cont-wrapper {
+      .movie-reviews-r1-cont {
+        line-height: 1.8em;
+        font-family: "Roboto";
+        margin: 15px;
+      }
+    }
+  }
+  .movie-reviews-review2 {
+    img {
+      width: 30px;
+      height: 30px;
+    }
+    .movie-reviews-r2-auth {
+      font-size: 20px;
+      letter-spacing: 1.5px;
+      margin: 15px;
+    }
+    .movie-reviews-r2-cont {
+      line-height: 1.8em;
+      margin: 15px;
+
+      font-family: Arial, Helvetica, sans-serif;
+    }
+  }
+
+  .movie-reviews-review1,
+  .movie-reviews-review2 {
+    display: flex;
+    flex-direction: column;
+    .reviews-btn {
+      justify-self: flex-end;
+      align-self: flex-end;
+      &:hover {
+        border: none;
+        img {
+          width: 40px;
+          height: 30px;
+          transition: 0.6s ease;
+        }
+      }
+      img {
+        width: 30px;
+        height: 20px;
+        position: relative;
+        // top: 5px;
+      }
+    }
+    .movie-reviews-r1-cont-wrapper,
+    .movie-reviews-r2-cont-wrapper {
+      max-height: 300px;
+      @include scrollBar;
+      padding: 5px 20px;
+    }
+  }
+}
+
+.movie-images-container {
+  width: 640px;
+  border: 1px solid;
+  height: 360px;
 }

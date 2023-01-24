@@ -1,3 +1,9 @@
+@mixin d_flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .home-container {
   display: grid;
   grid-template-columns: 20% 80%;
@@ -12,4 +18,190 @@
       //   border: 1px solid;
     }
   }
+}
+
+.movie-page-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 50px 20px;
+
+  .movie-page-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    .movies-goBack {
+      // display: inline-block;
+      text-decoration: none;
+      .arrow {
+        cursor: pointer;
+        height: 60px;
+        width: 60px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-bottom: 10px;
+        span {
+          font-size: 50px;
+        }
+      }
+      .go-back {
+        transform: scale(3);
+        // color: red;
+      }
+    }
+
+    .movie-page-title {
+      span {
+        font-family: "Mulish";
+        font-size: 25px;
+      }
+    }
+    .movie-page-vote {
+      @include d_flex;
+      border: 1px solid lightgray;
+      gap: 10px;
+      width: 15%;
+      padding: 5px;
+      img {
+        width: 30px;
+        height: 30px;
+      }
+      span {
+        font-family: "Roboto";
+      }
+    }
+    .movie-page-overview {
+      width: 90%;
+      span {
+        font-family: "Courier New", Courier, monospace;
+        font-size: 20px;
+        line-height: 1.5em;
+      }
+    }
+    .movie-page-creators {
+      span.creators {
+        font-size: 18px;
+        color: grey;
+        font-weight: bold;
+      }
+      span.director {
+        font-style: italic;
+        color: rgb(38, 38, 159);
+        font-size: 18px;
+      }
+    }
+    .movie-page-stars {
+      .star-wrapper {
+        span {
+          font-size: 18px;
+          color: grey;
+          font-weight: bold;
+        }
+      }
+      .stars-list {
+        margin-top: 10px;
+
+        .the-list {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin-bottom: 10px;
+          span {
+            font-style: italic;
+            color: rgb(38, 38, 159);
+            font-size: 18px;
+          }
+          img {
+            width: 25px;
+            height: 25px;
+            margin-right: 10px;
+            cursor: pointer;
+          }
+          img.pop-img {
+            width: 100px;
+            height: 100px;
+          }
+        }
+      }
+    }
+    .movie-page-add-btn-wrapper {
+      .movie-page-add-btn {
+        @include d_flex;
+        height: fit-content;
+        span {
+          font-size: 18px;
+          &::before {
+            content: "+ ";
+            font-size: 25px;
+            font-weight: bold;
+          }
+        }
+      }
+    }
+    .movie-page-top-casts {
+      .casts {
+        font-family: "Courier New", Courier, monospace;
+      }
+      .top-casts-letters {
+        display: flex;
+        gap: 20px;
+        div {
+          margin-top: 15px;
+          background: rgba(173, 216, 230, 0.543);
+          padding: 15px;
+          border-radius: 5px;
+          span {
+            font-weight: bold;
+          }
+        }
+      }
+    }
+    .movie-page-date {
+      span.txt1 {
+        font-size: 22px;
+      }
+      span.txt2 {
+        font-size: 20px;
+        font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
+          sans-serif;
+      }
+    }
+    .movie-page-reviews {
+      .reviews {
+        font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+          "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+        font-size: 22px;
+      }
+      .movie-page-reviews-inner {
+        margin-top: 10px;
+      }
+      .nothing-available {
+      }
+    }
+  }
+  .movie-page-trailer-and-images {
+    .movie-page-trailer {
+    }
+    .movie-page-images {
+    }
+    .video-btn-wrapper {
+      .video-btn {
+        img {
+          width: 30px;
+          height: 30px;
+        }
+      }
+    }
+    .images-btn-wrapper {
+      .images-btn {
+        img {
+          width: 30px;
+          height: 30px;
+        }
+      }
+    }
+  }
+}
+.ant-popover-title {
+  display: none;
 }

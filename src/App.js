@@ -7,14 +7,9 @@ import Movie from "./pages/Movie";
 function App() {
   return (
     <div>
-      {/* <Navbar /> */}
       <Routes>
         <Route path="/" element={<Home />} />
-        {/* this the main page of the app */}
         <Route path="movie/:id" element={<Movie></Movie>} />
-        {/* <Route path="/workouts" element={null} /> */}
-
-        {/* <Route path="/*" element={<NoMatch />} /> */}
       </Routes>
     </div>
   );

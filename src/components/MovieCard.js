@@ -60,10 +60,13 @@ export const MovieCard = ({
             className="movie-card-infos-img"
             src={`${img_url}${movieItem?.poster_path}`}
           ></img>
-
-          <span className="movie-card-infos-title">
-            {movieItem?.original_title}
-          </span>
+          <div>
+            <span className="movie-card-infos-title">
+              <Highlight search={searchInput}>
+                {movieItem?.original_title}
+              </Highlight>
+            </span>
+          </div>
 
           <span className="movie-card-infos-date">{rel_date}</span>
           <div className="movie-card-infos-vote-wrapper">
