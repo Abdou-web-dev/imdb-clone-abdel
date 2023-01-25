@@ -10,7 +10,26 @@ export const LatestMovies = ({}) => {
   const [paginationCurrentPage, setPaginationCurrentPage] = useState(0);
   const [latestMoviesPerPage, setLatestMoviesPerPage] = useState(10);
   // const [postsParPage, setpostsParPage] = useState(10);
+
   const { loading } = GetMovies();
+
+  const LatestMovies = () => {
+    return (
+      <>
+        {latestMovies?.map(
+          (latestMovie, index) =>
+            index > 0 && (
+              <div>
+                <MovieCard
+                  key={latestMovie?.id}
+                  {...{ latestMovie }}
+                ></MovieCard>
+              </div>
+            )
+        )}
+      </>
+    );
+  };
 
   if (loading)
     return (
@@ -21,22 +40,12 @@ export const LatestMovies = ({}) => {
   if (latestMovies) {
     return (
       <div className="latest-movies-list-container">
-        <>
-          {latestMovies?.map(
-            (latestMovie, index) =>
-              index > 0 && (
-                <div>
-                  <span>{index}</span>
-                  <br />
-
-                  <MovieCard
-                    key={latestMovie?.id}
-                    {...{ latestMovie }}
-                  ></MovieCard>
-                </div>
-              )
-          )}
-        </>
+        <div className="latest-movies-list-and-text">
+          <span className="intro">The Latest Movies :</span>
+          <div className="latest-movies-list">
+            <LatestMovies></LatestMovies>
+          </div>
+        </div>
         <div className="latest-movies-list-pagination-wrapper">
           <Pagination
             className={"latest-movies-list-pagination"}

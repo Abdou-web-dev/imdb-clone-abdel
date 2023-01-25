@@ -17,7 +17,7 @@ function Movie() {
   const { id } = useParams();
   const { EditPickmovies, latestMovies } = useContext(MoviesContext);
   const [movie, setMovie] = useState({}); //object
-  const [showTrailer, setshowTrailer] = useState(false);
+  const [showTrailer, setshowTrailer] = useState(true);
   const [showImages, setshowImages] = useState(false);
   let star1 = movie?.credits?.cast[0]?.name;
   let star2 = movie?.credits?.cast[1]?.name;
@@ -79,8 +79,8 @@ function Movie() {
   }, []);
 
   useEffect(() => {
-    console.log(movieImgUrls);
-  }, [movie, movieImgUrls]);
+    console.log(movie?.reviews);
+  }, [movie]);
 
   function handleClick() {}
 
@@ -91,7 +91,6 @@ function Movie() {
           <div className="movie-page-inner">
             <Link className="movies-goBack" to="/">
               <Button className="arrow">
-                {" "}
                 <span>&#8592;</span>
               </Button>
               {/* <span className="go-back">Go Back</span> */}
@@ -215,7 +214,7 @@ function Movie() {
 
             <div className="movie-page-reviews">
               <span className="reviews">Reviews : </span>
-              {movie?.reviews ? (
+              {movie?.reviews?.results?.length !== 0 ? (
                 <div className="movie-page-reviews-inner">
                   <MovieReviews movie={movie}></MovieReviews>
                 </div>
@@ -228,7 +227,7 @@ function Movie() {
           </div>
 
           <div className="movie-page-trailer-and-images">
-            <div className="movie-page-trailer">
+            <div className="movie-page-trailer-and-images-inner">
               {showTrailer ? (
                 <MovieTrailer movie={movie}></MovieTrailer>
               ) : showImages ? (
@@ -240,31 +239,31 @@ function Movie() {
                 ></MovieImages>
               ) : null}
             </div>
-
-            <div className="movie-page-images"></div>
-            <div className="video-btn-wrapper">
-              <Button
-                onClick={() => {
-                  setshowTrailer(true);
-                  setshowImages(false);
-                }}
-                className="video-btn"
-              >
-                <img src={video} alt="" />
-                <span>Trailer</span>
-              </Button>
-            </div>
-            <div className="images-btn-wrapper">
-              <Button
-                onClick={() => {
-                  setshowImages(true);
-                  setshowTrailer(false);
-                }}
-                className="images-btn"
-              >
-                <img src={photo} alt="" />
-                <span>{numberOfPhotos} Photos</span>
-              </Button>
+            <div className="video-and-photos-wrapper-btns">
+              <div className="video-btn-wrapper">
+                <Button
+                  onClick={() => {
+                    setshowTrailer(true);
+                    setshowImages(false);
+                  }}
+                  className="video-btn"
+                >
+                  <img src={video} alt="" />
+                  <span>Trailer</span>
+                </Button>
+              </div>
+              <div className="images-btn-wrapper">
+                <Button
+                  onClick={() => {
+                    setshowImages(true);
+                    setshowTrailer(false);
+                  }}
+                  className="images-btn"
+                >
+                  <img src={photo} alt="" />
+                  <span>{numberOfPhotos} Photos</span>
+                </Button>
+              </div>
             </div>
           </div>
         </>

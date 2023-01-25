@@ -1,3 +1,10 @@
+//defining screen breakpoints for responsivness
+$x-small: 0px;
+$small: 576px;
+$medium: 768px;
+$large: 992px;
+$x-large: 1200px;
+$xx-large: 1400px;
 .search-field-container {
   max-width: 232px;
   .search-field-input {
@@ -8,6 +15,15 @@
       background: none !important;
       border: none;
       padding: 0;
+    }
+  }
+  @media screen and (min-width: $large) and (max-width: $x-large) {
+    // border: 1px solid black;
+    .ant-input-suffix {
+      .ant-btn {
+        background: none !important;
+        padding: 0;
+      }
     }
   }
 }
@@ -30,12 +46,70 @@
     flex-direction: column;
     gap: 15px;
     label {
+      font-family: Karla;
     }
     .search-filters-genre-select {
-      //   display: none;
     }
   }
-  .search-filters-btn {
-    margin: 15px 0;
+  .search-filters-btns {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    .search-filters-btn-apply {
+      margin: 15px 0;
+      height: fit-content;
+      img {
+        width: 20px;
+        height: 20px;
+      }
+      span {
+        font-family: Karla;
+        font-size: 18px;
+      }
+    }
+    .search-filters-btn-delete {
+      margin: 15px 0;
+      height: fit-content;
+      width: fit-content;
+      &:hover {
+        img {
+          width: 21px;
+          height: 21px;
+        }
+      }
+      img {
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
+  @media screen and (min-width: $medium) and (max-width: $x-large) {
+    border: 0.5px solid rgba(122, 57, 57, 0.376);
+    flex-direction: row;
+    padding: 15px;
+    border-radius: 5px;
+    gap: 5px;
+    .search-filters-genre-select-wrapper,
+    .search-filters-language-select-wrapper,
+    .search-filters-rating-select-wrapper {
+      label {
+        font-family: Karla;
+      }
+      .search-filters-genre-select,
+      .search-filters-rating-select,
+      .search-filters-language-select {
+        width: 130px !important;
+      }
+    }
+    .search-filters-btns {
+      gap: 5px;
+      .search-filters-btn-apply {
+        margin: 15px 0;
+        span {
+          font-family: Karla;
+        }
+      }
+    }
   }
 }

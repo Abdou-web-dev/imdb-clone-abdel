@@ -44,7 +44,11 @@ export function MovieReviews({ movie }) {
       </div>
 
       <div className="movie-reviews-review2">
-        <span className="movie-reviews-r2-auth">by : {movieReviewAuthor2}</span>
+        {movieReviewAuthor2 && (
+          <span className="movie-reviews-r2-auth">
+            by : {movieReviewAuthor2}
+          </span>
+        )}
         <br /> <br />
         <div
           className="movie-reviews-r2-cont-wrapper"
@@ -53,9 +57,13 @@ export function MovieReviews({ movie }) {
               countWords(movieReviewContent) > 100 ? "scroll" : "hideen",
           }}
         >
-          <span className="movie-reviews-r2-cont">{movieReviewContent2}</span>
+          {movieReviewContent2 && (
+            <span className="movie-reviews-r2-cont">{movieReviewContent2}</span>
+          )}
         </div>
-        <KnowMore url={movieReviewUrl2}></KnowMore>
+        {movieReviewContent2 && movieReviewAuthor2 && (
+          <KnowMore url={movieReviewUrl2}></KnowMore>
+        )}
       </div>
     </div>
   );

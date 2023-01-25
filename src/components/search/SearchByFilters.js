@@ -1,6 +1,8 @@
 import { Button, Select } from "antd";
 import { useContext, useState } from "react";
 import arrow_down from "../../assets/img/arrow_down.svg";
+import deleteFilters from "../../assets/img/delete.svg";
+
 import { MoviesContext } from "../../contextApi/MoviesProvider";
 import "./styles.scss";
 export const SearchByFilters = ({
@@ -101,6 +103,13 @@ export const SearchByFilters = ({
     }
     setshowResultsByFilterApplied(true);
     // console.log(ratingSelect);
+  }
+
+  function handleDeleteFilter() {
+    setGenereSelect(``);
+    setLanguageSelect(``);
+    setRatingSelect(``);
+    setshowResultsByFilterApplied(false);
   }
   const arrowIcon = (
     <img
@@ -208,9 +217,20 @@ export const SearchByFilters = ({
         />
       </div>
 
-      <Button className="search-filters-btn" onClick={handleApplyFilters}>
-        <span>Apply filters</span>
-      </Button>
+      <div className="search-filters-btns">
+        <Button
+          className="search-filters-btn-apply"
+          onClick={handleApplyFilters}
+        >
+          <span>Apply filters</span>
+        </Button>
+        <Button
+          className="search-filters-btn-delete"
+          onClick={handleDeleteFilter}
+        >
+          <img src={deleteFilters} alt="" />
+        </Button>
+      </div>
     </div>
   );
 };

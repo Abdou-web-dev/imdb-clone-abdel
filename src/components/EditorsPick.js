@@ -6,8 +6,7 @@ import { MovieCard } from "./MovieCard";
 import "./styles.scss";
 
 export const EditorsPick = ({ searchInput }) => {
-  const { EditPickmovies, setEditPickmovies, latestMovies } =
-    useContext(MoviesContext);
+  const { EditPickmovies, setEditPickmovies } = useContext(MoviesContext);
   let append = `&append_to_response=credits,videos,images,reviews`;
   const [loading, setLoading] = useState(true);
   let movie1Url = `https://api.themoviedb.org/3/movie/343611?api_key=c611912a578da3c70cd0f51d4b6c2764${append}`;
@@ -72,30 +71,30 @@ export const EditorsPick = ({ searchInput }) => {
   };
 
   useEffect(() => {
-    // setTimeout(() => {
-    getMovies();
-    // }, 500);
+    setTimeout(() => {
+      getMovies();
+    }, 500);
   }, []);
 
   if (loading)
     return (
-      <div className="loading-spinner">
+      <div className="loading-spinner ">
         <Spin spinning={true} size="large" />
       </div>
     );
 
   return (
     <div className="editor-pick-movies-list-container">
-      {EditPickmovies &&
-        EditPickmovies?.map((editorMovie, index) => (
-          <div>
-            <span>{index}</span>
+      <span className="intro">Editor's Picks Movies :</span>
+      <div className="list-of-movies">
+        {EditPickmovies &&
+          EditPickmovies?.map((editorMovie, index) => (
             <MovieCard
               key={editorMovie?.id}
               {...{ editorMovie, searchInput }}
             ></MovieCard>
-          </div>
-        ))}
+          ))}
+      </div>
     </div>
   );
 };

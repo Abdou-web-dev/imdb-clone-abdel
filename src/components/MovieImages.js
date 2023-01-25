@@ -1,10 +1,10 @@
 import { Button, Carousel } from "antd";
 import { useRef, useState } from "react";
-import "./styles.scss";
-
 import nextIcon from "../assets/img/next.svg";
 import prevIcon from "../assets/img/prev.svg";
 import resetIcon from "../assets/img/reset.svg";
+import skeleton from "../assets/img/skeleton.svg";
+import "./styles.scss";
 
 export function MovieImages({ movieImages: movieImagesUrls }) {
   const img_url = "http://image.tmdb.org/t/p/w500"; //w500 or 'original' for full size
@@ -13,8 +13,9 @@ export function MovieImages({ movieImages: movieImagesUrls }) {
 
   return (
     <div className="movie-images-container">
-      <div className="home-carousel-btns">
+      <div className="movie-images-carousel-btns">
         <Button
+          className="btn-prev"
           onClick={() => {
             ref.current.prev();
           }}
@@ -30,6 +31,7 @@ export function MovieImages({ movieImages: movieImagesUrls }) {
           <img width={`30px`} height="30px" src={resetIcon} alt="" />
         </Button>
         <Button
+          className="btn-next"
           onClick={() => {
             ref.current.next();
           }}
@@ -38,9 +40,9 @@ export function MovieImages({ movieImages: movieImagesUrls }) {
         </Button>
       </div>
       <Carousel
+        className="movie-images-carousel"
         dots
         dotPosition="right"
-        className="home-carousel-carousel"
         ref={ref}
         pauseOnHover
         autoplay={true}
@@ -53,14 +55,23 @@ export function MovieImages({ movieImages: movieImagesUrls }) {
       >
         {movieImagesUrls &&
           movieImagesUrls?.map((path, index) => (
-            <img
-              key={index}
-              width={`200px`}
-              height="200px"
-              src={`${img_url}${path}`}
-            ></img>
+            <>
+              <img
+                className="carousel-image"
+                key={index}
+                src={path ? `${img_url}${path}` : skeleton}
+              ></img>
+            </>
           ))}
       </Carousel>
     </div>
   );
 }
+/* <Image
+key={index}
+// className="carousel-image"
+loading={"lazy"}
+// width={400}
+// src={imagePath}
+src={`${img_url}${path}`}
+/> */

@@ -1,4 +1,5 @@
 import ReactPlayer from "react-player";
+import "./styles.scss";
 
 export function MovieTrailer({ movie }) {
   function trailerUrl() {
@@ -10,15 +11,18 @@ export function MovieTrailer({ movie }) {
     // this error is solved by the  if (trailer) statement above :  Uncaught TypeError: Cannot read properties of undefined (reading '0')
   }
   return (
-    <div>
-      <ReactPlayer
-        className="react-player"
-        // playIcon={<PlayIcon />}
-        controls
-        light
-        url={`https://www.youtube.com/watch?v=${trailerUrl()}`}
-        // when using react-player, must type watch in the url , rather than embed
-      />
+    <div className="movie-trailer-container">
+      {movie !== null ? (
+        <ReactPlayer
+          className="movie-react-player"
+          // playIcon={<PlayIcon />}
+          playing
+          controls
+          light
+          url={`https://www.youtube.com/watch?v=${trailerUrl()}`}
+          // when using react-player, must type watch in the url , rather than embed
+        />
+      ) : null}
     </div>
   );
 }

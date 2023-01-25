@@ -1,3 +1,11 @@
+//defining screen breakpoints for responsivness
+$x-small: 0px;
+$small: 576px;
+$medium: 768px;
+$large: 992px;
+$x-large: 1200px;
+$xx-large: 1400px;
+
 @mixin d_flex {
   display: flex;
   justify-content: center;
@@ -17,6 +25,22 @@
     .home-latest-movies-container {
       //   border: 1px solid;
     }
+  }
+  @media screen and (min-width: $x-large) and (max-width: $xx-large) {
+    display: grid;
+    grid-template-columns: 20% 80%;
+  }
+  @media screen and (min-width: $medium) and (max-width: $x-large) {
+    display: flex;
+    flex-direction: column;
+    .home-searchbar-container {
+    }
+  }
+  @media screen and (min-width: $medium) and (max-width: $large) {
+  }
+  @media screen and (min-width: $small) and (max-width: $medium) {
+    display: grid;
+    // grid-template-columns: 20% 70%;
   }
 }
 
@@ -180,23 +204,46 @@
     }
   }
   .movie-page-trailer-and-images {
-    .movie-page-trailer {
+    .movie-page-trailer-and-images-inner {
     }
-    .movie-page-images {
-    }
-    .video-btn-wrapper {
-      .video-btn {
-        img {
-          width: 30px;
-          height: 30px;
+    .video-and-photos-wrapper-btns {
+      @include d_flex();
+      justify-content: flex-start;
+      gap: 15px;
+      margin-top: 20px;
+
+      .video-btn-wrapper {
+        .video-btn {
+          @include d_flex();
+          gap: 15px;
+          height: fit-content;
+          border: none;
+          img {
+            width: 30px;
+            height: 30px;
+          }
+        }
+        &:hover {
+          img {
+            translate: 5px;
+          }
         }
       }
-    }
-    .images-btn-wrapper {
-      .images-btn {
-        img {
-          width: 30px;
-          height: 30px;
+      .images-btn-wrapper {
+        .images-btn {
+          &:hover {
+            img {
+              translate: 5px;
+            }
+          }
+          @include d_flex();
+          gap: 15px;
+          height: fit-content;
+          border: none;
+          img {
+            width: 30px;
+            height: 30px;
+          }
         }
       }
     }
@@ -204,4 +251,12 @@
 }
 .ant-popover-title {
   display: none;
+}
+
+.star {
+  display: inline-block;
+  position: relative;
+  font-size: 30px;
+  color: #ddd;
+  // width: 30px;
 }

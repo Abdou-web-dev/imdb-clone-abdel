@@ -48,10 +48,7 @@ function Home() {
         </div>
 
         <div className="home-latest-movies-container">
-          LatestMovies !!!
-          {searchInput?.length === 0 && !showResultsByFilterApplied && (
-            <LatestMovies></LatestMovies>
-          )}
+          <LatestMovies></LatestMovies>
         </div>
       </div>
     </div>

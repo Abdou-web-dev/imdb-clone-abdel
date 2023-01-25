@@ -2,8 +2,8 @@ import { Button, Input } from "antd";
 import { useContext, useState } from "react";
 import chercher from "../../assets/img/chercher.png";
 import clearIcon from "../../assets/img/remove.png";
-
 import { MoviesContext } from "../../contextApi/MoviesProvider";
+
 import "./styles.scss";
 
 export const SearchField = ({
@@ -19,29 +19,36 @@ export const SearchField = ({
   const searchMovies = (searchValue) => {
     setSearchInput(searchValue);
     if (searchInput !== "") {
-      const filteredData = EditPickmovies.filter((movie) => {
+      const filteredData = EditPickmovies?.filter((movie) => {
         let movieStars = [
-          movie?.credits?.cast[0].name,
-          movie?.credits?.cast[1].name,
-          movie?.credits?.cast[2].name,
-          movie?.credits?.cast[3].name,
-          movie?.credits?.cast[4].name,
-          movie?.credits?.cast[5].name,
+          movie?.credits?.cast[0]?.name,
+          movie?.credits?.cast[1]?.name,
+          movie?.credits?.cast[2]?.name,
+          movie?.credits?.cast[3]?.name,
+          movie?.credits?.cast[4]?.name,
+          movie?.credits?.cast[5]?.name,
         ];
-        let movieDirectors = [movie?.credits?.crew[0].name];
+        let movieDirectors = [
+          movie?.credits?.crew[0]?.name,
+          movie?.credits?.crew[1]?.name,
+          movie?.credits?.crew[2]?.name,
+          movie?.credits?.crew[3]?.name,
+          movie?.credits?.crew[4]?.name,
+          movie?.credits?.crew[5]?.name,
+          movie?.credits?.crew[6]?.name,
+        ];
 
-        console.log(movieDirectors);
         // a search either by the movie title, its director, or its stars
         return (
-          Object.values(movie?.original_title)
+          Object.values(movie?.original_title || {})
             .join("")
             .toLowerCase()
             .includes(searchInput.toString().toLowerCase()) ||
-          Object.values(movieStars)
+          Object.values(movieStars || [])
             .join("")
             .toLowerCase()
             .includes(searchInput.toString().toLowerCase()) ||
-          Object.values(movieDirectors)
+          Object.values(movieDirectors || [])
             .join("")
             .toLowerCase()
             .includes(searchInput.toString().toLowerCase())

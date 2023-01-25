@@ -1,8 +1,10 @@
-import { Button } from "antd";
-import { useEffect } from "react";
+import { Button, Popover } from "antd";
+import { useEffect, useState } from "react";
 import Highlight from "react-highlighter";
 import { Link } from "react-router-dom";
+import chief from "../assets/img/chief.svg";
 import star from "../assets/img/star.svg";
+
 import "./styles.scss";
 
 export const MovieCard = ({
@@ -23,25 +25,72 @@ export const MovieCard = ({
   let star5 = filteredResult?.credits?.cast[4]?.name;
   let directorName = filteredResult?.credits?.crew[0]?.name;
 
+  const directorPhoto = (
+    <img
+      width={`350px`}
+      height={`350px`}
+      className="director-photo"
+      src={`${img_url}${DirectorPathUrl()}`}
+      alt=""
+    />
+  );
+  function GuessDirectorNAme() {
+    let DirectorsNamesArray = filteredResult?.credits?.crew?.filter(
+      (filteredResult) => {
+        if (
+          filteredResult?.known_for_department === "Directing" &&
+          filteredResult?.department === "Directing"
+        )
+          return filteredResult?.name;
+      }
+    );
+    if (DirectorsNamesArray) return DirectorsNamesArray[0]?.name;
+    // this error is solved by the  if (trailer) statement above :  Uncaught TypeError: Cannot read properties of undefined (reading '0')
+  }
+
+  function DirectorPathUrl() {
+    let DirectorsArray = filteredResult?.credits?.crew?.filter(
+      (filteredResult) => {
+        if (
+          filteredResult?.known_for_department === "Directing" &&
+          filteredResult?.department === "Directing"
+        )
+          return filteredResult?.profile_path;
+      }
+    );
+    if (DirectorsArray) return DirectorsArray[0]?.profile_path;
+    // this error is solved by the  if (trailer) statement above :  Uncaught TypeError: Cannot read properties of undefined (reading '0')
+  }
+
   const rel_date = movieItem?.release_date?.slice(0, 4); //to get only the year
 
   useEffect(() => {
-    if (searchInput) console.log(searchInput);
-  }, [searchInput]);
+    if (filteredResult) console.log(DirectorPathUrl(), "here");
+  }, [filteredResult]);
 
-  let movieGenres = [
-    // movieItem?.genres[0]?.name,
-    // movieItem?.genres[1]?.name,
-    // movieItem?.genres[2]?.name,
-  ];
+  // let movieGenres = [
+  // movieItem?.genres[0]?.name,
+  // movieItem?.genres[1]?.name,
+  // movieItem?.genres[2]?.name,
+  // ];
 
-  function handleAddToWatchList() {}
+  const [watchList, setWatchList] = useState([]);
+
+  function handleAddToWatchList(id) {
+    const newList = [...watchList, id];
+    // let array = watchList?.push(movieItem?.id);
+    setWatchList(newList);
+    // setWatchList([array, movieItem]);
+  }
+  console.log(watchList);
 
   return (
     <div
       className={
         latestMovie
           ? "latest-movie-card-container movie-card-container"
+          : filteredResult
+          ? "movie-card-container filtered-card"
           : "movie-card-container"
       }
     >
@@ -49,7 +98,7 @@ export const MovieCard = ({
         <div className="movie-card-genres">
           {searchInput?.length !== 0 && !latestMovie && (
             <div>
-              <span>genres :</span> <br />
+              {/* <span>genres :</span> <br /> */}
               {/* {movieGenres && <div>{movieGenres[0]}</div>} */}
             </div>
           )}
@@ -79,7 +128,7 @@ export const MovieCard = ({
           <div className="movie-card-btns">
             <Button
               className="movie-card-add-btn"
-              onClick={handleAddToWatchList}
+              onClick={() => handleAddToWatchList(editorMovie?.id)}
             >
               <span>Add to WatchList</span>
             </Button>
@@ -88,10 +137,7 @@ export const MovieCard = ({
               style={{ textDecoration: "none" }}
               className=""
             >
-              <Button
-                onClick={handleAddToWatchList}
-                className="movie-card-infos-btn"
-              >
+              <Button className="movie-card-infos-btn">
                 <span>View Infos</span>
               </Button>
             </Link>
@@ -105,7 +151,10 @@ export const MovieCard = ({
           <div className="movie-card-director">
             <span className="text">Directed by :</span>
             <div className="movie-card-director-highlighted-text">
-              <Highlight search={searchInput}>{directorName}</Highlight>
+              <Popover content={directorPhoto}>
+                <img className="photo-icon" src={chief} alt="" />
+              </Popover>
+              <Highlight search={searchInput}>{GuessDirectorNAme()}</Highlight>
             </div>
           </div>
 
